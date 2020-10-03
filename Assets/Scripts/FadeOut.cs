@@ -16,7 +16,6 @@ public class FadeOut : MonoBehaviour
     private bool faded = false;
     private RoomChange room;
     private GameObject player;
-    private bool changeRoom;
     private Vector3 playerPos;
 
     // Start is called before the first frame update
@@ -40,10 +39,18 @@ public class FadeOut : MonoBehaviour
                 {
                     faded = true;
                     player.transform.position = playerPos;
-                    if (changeRoom)
+                    EventHandler.events.SetRoomEvent();
+                    if (EventHandler.events.changeRoom)
                     {
-                        changeRoom = false;
+                        EventHandler.events.changeRoom = false;
                         room.ChangeRoomCondition();
+                    }
+                    //If win condition is not cleared, reset everything.
+                    if (EventHandler.events.finalRoom == 4)
+                    {
+                        room.Setup();
+                        EventHandler.events.Setup();
+                        mat.color = new Color(0, 0, 0, 0);
                     }
                 }
             }
@@ -55,14 +62,15 @@ public class FadeOut : MonoBehaviour
         }
     }
 
-    public void StartFadeOut(Vector3 nextPos, bool finalChange)
+    public void StartFadeOut(Vector3 nextPos)
     {
         started = true;
         playerPos = nextPos;
         
-        if (finalChange)
+        if (EventHandler.events.finale)
         {
             mat.color = new Color(1, 1, 1, 0);
+            EventHandler.events.finalRoom++;
         }
     }
 }

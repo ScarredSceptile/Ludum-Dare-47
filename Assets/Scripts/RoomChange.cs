@@ -20,11 +20,16 @@ public class RoomChange : MonoBehaviour
 
     private bool changingTextures = false;
     [SerializeField]
-    private int cycle = -1;
+    
     private bool start = true;
 
     // Start is called before the first frame update
     void Start()
+    {
+        Setup();
+    }
+
+    public void Setup()
     {
         floorNormal.SetTexture("Texture2D_266AE8AE", floorTex[0]);
         floorNormal.SetTexture("Texture2D_20F4052F", floorNormals[0]);
@@ -51,16 +56,16 @@ public class RoomChange : MonoBehaviour
 
         if (!changingTextures)
         {
-            if (cycle == 4)
+            if (EventHandler.events.cycle == 4)
             {
                 floor.GetComponent<MeshRenderer>().material = final;
             }
 
-            floorChanging.SetTexture("Texture2D_E95FAD52", floorTex[cycle]);
-            floorChanging.SetTexture("Texture2D_A2475B51", floorNormals[cycle]);
-            floorChanging.SetTexture("Texture2D_96F304F0", floorTex[cycle + 1]);
-            floorChanging.SetTexture("Texture2D_76445688", floorNormals[cycle + 1]);
-            floorChanging.SetInt("Vector1_20B391B5", cycle * 10);
+            floorChanging.SetTexture("Texture2D_E95FAD52", floorTex[EventHandler.events.cycle]);
+            floorChanging.SetTexture("Texture2D_A2475B51", floorNormals[EventHandler.events.cycle]);
+            floorChanging.SetTexture("Texture2D_96F304F0", floorTex[EventHandler.events.cycle + 1]);
+            floorChanging.SetTexture("Texture2D_76445688", floorNormals[EventHandler.events.cycle + 1]);
+            floorChanging.SetInt("Vector1_20B391B5", EventHandler.events.cycle * 10);
             ChangePerlinCorruption();
 
             floor.GetComponent<MeshRenderer>().material = floorChanging;
@@ -72,10 +77,10 @@ public class RoomChange : MonoBehaviour
 
         else
         {
-            cycle++;
-            floorNormal.SetTexture("Texture2D_266AE8AE", floorTex[cycle]);
-            floorNormal.SetTexture("Texture2D_20F4052F", floorNormals[cycle]);
-            floorNormal.SetInt("Vector1_F96CC34", cycle * 10);
+            EventHandler.events.cycle++;
+            floorNormal.SetTexture("Texture2D_266AE8AE", floorTex[EventHandler.events.cycle]);
+            floorNormal.SetTexture("Texture2D_20F4052F", floorNormals[EventHandler.events.cycle]);
+            floorNormal.SetInt("Vector1_F96CC34", EventHandler.events.cycle * 10);
 
             floor.GetComponent<MeshRenderer>().material = floorNormal;
             foreach (GameObject wall in walls)
@@ -89,7 +94,7 @@ public class RoomChange : MonoBehaviour
 
     private void ChangePerlinCorruption()
     {
-        switch(cycle)
+        switch(EventHandler.events.cycle)
         {
             case 0: floorChanging.SetInt("Vector1_57198B2E", 5); break;
             case 1: floorChanging.SetInt("Vector1_57198B2E", 10); break;

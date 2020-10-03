@@ -11,7 +11,7 @@ public class Doors : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            FadeOut.fadeOut.StartFadeOut(new Vector3(otherDoor.transform.position.x + xOffset, other.transform.position.y, other.transform.position.z), false);
+            FadeOut.fadeOut.StartFadeOut(new Vector3(otherDoor.transform.position.x + xOffset, other.transform.position.y, other.transform.position.z));
         }
     }
 }
