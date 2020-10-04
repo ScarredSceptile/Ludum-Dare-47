@@ -45,6 +45,10 @@ public class FadeOut : MonoBehaviour
                         EventHandler.events.changeRoom = false;
                         room.ChangeRoomCondition();
                     }
+                    if (EventHandler.events.finalRoom == 3)
+                    {
+                        EventHandler.events.SpawnEnd();
+                    }
                     //If win condition is not cleared, reset everything.
                     if (EventHandler.events.finalRoom == 4)
                     {

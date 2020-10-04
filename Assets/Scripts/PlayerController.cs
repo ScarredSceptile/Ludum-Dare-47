@@ -17,32 +17,55 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!FadeOut.fadeOut.started)
+        if (!FadeOut.fadeOut.started && !EventHandler.events.endStarted)
         {
-            float x = 0;
-            float z = 0;
-
             if (Input.GetKey(KeyCode.W))
             {
-                z += Time.deltaTime * speed;
+                float orgZ = transform.position.z;
+                float z = orgZ + Time.deltaTime * speed;
+
+                transform.position = new Vector3(transform.position.x, transform.position.y, z);
+                if (Physics.CheckBox(new Vector3(transform.position.x, 1.1f, transform.position.z),new Vector3(0.24f, 0.01f, 0.24f))) 
+                {
+                    transform.position = new Vector3(transform.position.x, transform.position.y, orgZ);
+                }
             }
 
             if (Input.GetKey(KeyCode.S))
             {
-                z -= Time.deltaTime * speed;
+                float orgZ = transform.position.z;
+                float z = orgZ - Time.deltaTime * speed;
+
+                transform.position = new Vector3(transform.position.x, transform.position.y, z);
+                if (Physics.CheckBox(new Vector3(transform.position.x, 1.1f, transform.position.z), new Vector3(0.25f, 0.01f, 0.25f)))
+                {
+                    transform.position = new Vector3(transform.position.x, transform.position.y, orgZ);
+                }
             }
 
             if (Input.GetKey(KeyCode.D))
             {
-                x += Time.deltaTime * speed;
+                float orgX = transform.position.x;
+                float x = orgX + Time.deltaTime * speed;
+
+                transform.position = new Vector3(x, transform.position.y, transform.position.z);
+                if (Physics.CheckBox(new Vector3(transform.position.x, 1.1f, transform.position.z), new Vector3(0.25f, 0.01f, 0.25f)))
+                {
+                    transform.position = new Vector3(orgX, transform.position.y, transform.position.z);
+                }
             }
 
             if (Input.GetKey(KeyCode.A))
             {
-                x -= Time.deltaTime * speed;
-            }
+                float orgX = transform.position.x;
+                float x = orgX - Time.deltaTime * speed;
 
-            rb.MovePosition(new Vector3(transform.position.x + x, transform.position.y, transform.position.z + z));
+                transform.position = new Vector3(x, transform.position.y, transform.position.z);
+                if (Physics.CheckBox(new Vector3(transform.position.x, 1.1f, transform.position.z), new Vector3(0.25f, 0.01f, 0.25f)))
+                {
+                    transform.position = new Vector3(orgX, transform.position.y, transform.position.z);
+                }
+            }
         }
     }
 }

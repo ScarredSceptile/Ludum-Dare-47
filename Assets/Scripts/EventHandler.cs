@@ -16,9 +16,14 @@ public class EventHandler : MonoBehaviour
     public bool finale = false;
     public int finalRoom = 0;
     public bool changeRoom = false;
+    public bool endStarted = false;
 
+    [SerializeField]
     private int currentRoomEvents = 0;
+    [SerializeField]
     private int currentRoomGoal = 2;
+
+    private GameObject roomEvent;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +38,7 @@ public class EventHandler : MonoBehaviour
         finale = false;
         finalRoom = 0;
         changeRoom = false;
-        currentRoomGoal = 0;
+        currentRoomEvents = 0;
         currentRoomGoal = 2;
     }
 
@@ -43,6 +48,7 @@ public class EventHandler : MonoBehaviour
         if (currentRoomEvents == currentRoomGoal)
         {
             changeRoom = true;
+            currentRoomEvents = 0;
 
             //Prime Numbers just so that I have some sort of system in it
             switch(cycle)
@@ -61,12 +67,25 @@ public class EventHandler : MonoBehaviour
     {
         if (ran <= chance)
         {
-
+            int newEvent = Random.Range(0, 2);
+            switch(newEvent)
+            {
+                case 0: ButtonEvent(); break;
+                case 1: PushEvent(); break;
+                default: Debug.Log("Event Range too large"); break;
+            }
         }
     }
 
     public void SetRoomEvent()
     {
+        //Remove event from previous room if there was one
+        if (roomEvent != null)
+        {
+            Destroy(roomEvent);
+            roomEvent = null;
+        }
+
         if (!finale)
         {
             switch (cycle)
@@ -82,13 +101,29 @@ public class EventHandler : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private GameObject button;
+
     private void ButtonEvent()
     {
-
+        roomEvent = Instantiate(button);
+        float x = Random.Range(-7, 7);
+        float z = Random.Range(-3, 3);
+        roomEvent.transform.position = new Vector3(x, 0.52f, z);
     }
+
+    [SerializeField]
+    private GameObject pushObject;
 
     private void PushEvent()
     {
+        roomEvent = Instantiate(pushObject);
+    }
 
+    [SerializeField]
+    private GameObject end;
+    public void SpawnEnd()
+    {
+        roomEvent = Instantiate(end);
     }
 }

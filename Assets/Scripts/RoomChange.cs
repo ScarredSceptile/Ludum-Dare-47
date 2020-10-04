@@ -59,6 +59,8 @@ public class RoomChange : MonoBehaviour
             if (EventHandler.events.cycle == 4)
             {
                 floor.GetComponent<MeshRenderer>().material = final;
+                EventHandler.events.finale = true;
+                return;
             }
 
             floorChanging.SetTexture("Texture2D_E95FAD52", floorTex[EventHandler.events.cycle]);
