@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
                 float z = orgZ + Time.deltaTime * speed;
 
                 transform.position = new Vector3(transform.position.x, transform.position.y, z);
-                if (Physics.CheckBox(new Vector3(transform.position.x, 1.1f, transform.position.z),new Vector3(0.24f, 0.01f, 0.24f))) 
+                if (Physics.CheckBox(new Vector3(transform.position.x, 1.1f, transform.position.z),new Vector3(0.24f, 0.01f, 0.24f), transform.rotation, 0,QueryTriggerInteraction.Ignore)) 
                 {
                     transform.position = new Vector3(transform.position.x, transform.position.y, orgZ);
                 }
@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
                 float z = orgZ - Time.deltaTime * speed;
 
                 transform.position = new Vector3(transform.position.x, transform.position.y, z);
-                if (Physics.CheckBox(new Vector3(transform.position.x, 1.1f, transform.position.z), new Vector3(0.25f, 0.01f, 0.25f)))
+                if (Physics.CheckBox(new Vector3(transform.position.x, 1.1f, transform.position.z), new Vector3(0.25f, 0.01f, 0.25f), transform.rotation, 0, QueryTriggerInteraction.Ignore))
                 {
                     transform.position = new Vector3(transform.position.x, transform.position.y, orgZ);
                 }
@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
                 float x = orgX + Time.deltaTime * speed;
 
                 transform.position = new Vector3(x, transform.position.y, transform.position.z);
-                if (Physics.CheckBox(new Vector3(transform.position.x, 1.1f, transform.position.z), new Vector3(0.25f, 0.01f, 0.25f)))
+                if (Physics.CheckBox(new Vector3(transform.position.x, 1.1f, transform.position.z), new Vector3(0.25f, 0.01f, 0.25f), transform.rotation, 0, QueryTriggerInteraction.Ignore))
                 {
                     transform.position = new Vector3(orgX, transform.position.y, transform.position.z);
                 }
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
                 float x = orgX - Time.deltaTime * speed;
 
                 transform.position = new Vector3(x, transform.position.y, transform.position.z);
-                if (Physics.CheckBox(new Vector3(transform.position.x, 1.1f, transform.position.z), new Vector3(0.25f, 0.01f, 0.25f)))
+                if (Physics.CheckBox(new Vector3(transform.position.x, 1.1f, transform.position.z), new Vector3(0.25f, 0.01f, 0.25f), transform.rotation, 0, QueryTriggerInteraction.Ignore))
                 {
                     transform.position = new Vector3(orgX, transform.position.y, transform.position.z);
                 }

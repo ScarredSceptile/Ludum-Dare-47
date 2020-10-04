@@ -12,6 +12,8 @@ public class RoomChange : MonoBehaviour
     public Material groundChange;
     public Material final;
 
+    private AudioSource sound;
+
     public List<Texture2D> floorTex = new List<Texture2D>();
     public List<Texture2D> floorNormals = new List<Texture2D>();
 
@@ -26,6 +28,7 @@ public class RoomChange : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        sound = GetComponent<AudioSource>();
         Setup();
     }
 
@@ -56,6 +59,8 @@ public class RoomChange : MonoBehaviour
 
         if (!changingTextures)
         {
+            sound.PlayOneShot(sound.clip);
+
             if (EventHandler.events.cycle == 4)
             {
                 floor.GetComponent<MeshRenderer>().material = final;
@@ -106,7 +111,7 @@ public class RoomChange : MonoBehaviour
             default: floorChanging.SetInt("Vector1_57198B2E", 100); break;
         }
     }
-
+/*
     [UnityEditor.CustomEditor(typeof(RoomChange))]
     public class UIElementEditor : UnityEditor.Editor
     {
@@ -119,5 +124,5 @@ public class RoomChange : MonoBehaviour
                 uiElement.ChangeRoomCondition();
             }
         }
-    }
+    }*/
 }

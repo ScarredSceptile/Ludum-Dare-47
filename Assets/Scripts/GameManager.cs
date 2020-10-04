@@ -5,6 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    private void Start()
+    {
+        if (Screen.fullScreen)
+        {
+            Screen.fullScreen = false;
+        }
+    }
     public void StartGame()
     {
         SceneManager.LoadScene("Game");

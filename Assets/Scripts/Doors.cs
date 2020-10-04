@@ -7,7 +7,7 @@ public class Doors : MonoBehaviour
     public GameObject otherDoor;
     public float xOffset;
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {

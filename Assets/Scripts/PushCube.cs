@@ -7,10 +7,12 @@ public class PushCube : MonoBehaviour
 {
 
     private Rigidbody rb;
+    private AudioSource pushSound;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        pushSound = GetComponent<AudioSource>();
     }
 
     private void OnCollisionEnter(Collision other)
@@ -28,6 +30,7 @@ public class PushCube : MonoBehaviour
             {
                 rb.MovePosition(new Vector3(transform.position.x, transform.position.y, transform.position.z - Mathf.Sign(z) * 0.5f));
             }
+            pushSound.PlayOneShot(pushSound.clip);
         }
     }
 
@@ -37,6 +40,8 @@ public class PushCube : MonoBehaviour
         {
             EventHandler.events.CompleteEvent();
             other.GetComponent<MeshRenderer>().material.color = new Color(0, 1, 0, 1);
+            AudioSource source = other.GetComponent<AudioSource>();
+            source.PlayOneShot(source.clip);
             Destroy(gameObject);
         }
     }
